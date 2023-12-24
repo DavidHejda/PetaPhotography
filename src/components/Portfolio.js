@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const Portfolio = () => {
+  //eslint-disable-next-line no-unused-vars
   const [photos, setPhotos] = useState([]);
 
   // Fetch photos from Airtable or another backend here
