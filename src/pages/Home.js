@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import CarouselComponent from '../components/CarouselComponent';
 import About from '../components/AboutComponent';
 import GalleryComponent from '../components/GalleryComponent';

@@ -12,7 +12,6 @@ import {
   useColorModeValue,
   HStack,
   Box,
-  Grid,
   useDisclosure,
 } from '@chakra-ui/react';
 import ModalGalleryComponent from './ModalGalleryComponent';
@@ -232,11 +231,11 @@ const GalleryComponent = () => {
           <Tab _selected={{ bg: activeBgColor }}>Produkty</Tab>
         </TabList>
         <TabPanels>
-          <TabPanel>{renderImageGrid(images?.people, 'people')}</TabPanel>
-          <TabPanel>{renderImageGrid(images?.weddings, 'weddings')}</TabPanel>
+          <TabPanel>{renderImageGrid(imageData.people, 'people')}</TabPanel>
+          <TabPanel>{renderImageGrid(imageData.weddings, 'weddings')}</TabPanel>
           <TabPanel>
             {renderImageGrid(
-              images?.products.map((productImage) => productImage.url),
+              imageData.products, // .map((productImage) => productImage.url)
               'products'
             )}
           </TabPanel>
@@ -245,7 +244,7 @@ const GalleryComponent = () => {
       <ModalGalleryComponent
         isOpen={isOpen}
         onClose={onClose}
-        images={images[currentCategory]}
+        images={imageData[currentCategory]}
         currentCategory={currentCategory}
         currentImage={currentImage}
         setCurrentImage={setCurrentImage}

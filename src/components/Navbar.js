@@ -16,7 +16,6 @@ import { HamburgerIcon } from '@chakra-ui/icons';
 import { IconButton } from '@chakra-ui/react';
 
 const Navbar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isPriceListOpen,
     onOpen: onPriceListOpen,
