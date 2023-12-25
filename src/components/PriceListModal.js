@@ -6,15 +6,16 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
-  Text,
   Heading,
   Box,
+  List,
+  ListItem,
 } from '@chakra-ui/react';
 
 const PriceListModal = ({ isOpen, onClose }) => {
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} size="xl" m>
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent minWidth="80vw">
           <ModalHeader textAlign={'center'}>
@@ -36,20 +37,11 @@ const PriceListModal = ({ isOpen, onClose }) => {
                   textAlign="center"
                   my={{ base: '1rem' }}
                 >
-                  PORTRÉTNÍ FOCENÍ
+                  Každé focení je individuální, proto vám cenu zašlu po domluvě.
                 </Heading>
-                <Text mb={2} textAlign="justify">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. At
-                  soluta impedit corporis exercitationem reiciendis praesentium
-                  aspernatur, nulla nisi magnam libero neque ipsum ut quas vitae
-                  laborum voluptas eaque suscipit. Alias omnis atque et
-                  reiciendis cumque eligendi aliquam maiores sint. Harum aliquid
-                  ratione non natus cupiditate suscipit sunt! Blanditiis, porro.
-                  Hic?.
-                </Text>
               </Box>
 
-              <Box>
+              <Box margin="auto">
                 <Heading
                   as="h4"
                   size="md"
@@ -59,13 +51,10 @@ const PriceListModal = ({ isOpen, onClose }) => {
                 >
                   SVATEBNÍ FOCENÍ
                 </Heading>
-                <Text mb={2} textAlign="justify">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Accusantium rerum delectus illo, odit atque, sunt quibusdam
-                  sapiente modi corrupti tenetur facilis necessitatibus, nostrum
-                  laboriosam dolorem ratione maxime porro nulla perspiciatis sed
-                  saepe optio a! A nemo rem architecto unde laborum?
-                </Text>
+                <List styleType="disc" mb={2}>
+                  <ListItem>Celodenní od 15 000 Kč</ListItem>
+                  <ListItem>Půldenní od 7000 Kč</ListItem>
+                </List>
               </Box>
               <Box>
                 <Heading
@@ -75,16 +64,12 @@ const PriceListModal = ({ isOpen, onClose }) => {
                   textAlign="center"
                   my={{ base: '1rem' }}
                 >
-                  PRODUKTOVÉ FOCENÍ
+                  PORTRETNÍ FOCENÍ
                 </Heading>
-                <Text mb={2} textAlign="justify">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Tenetur iure sapiente distinctio sint omnis ipsam laboriosam
-                  nesciunt quibusdam inventore eaque doloribus, adipisci sed,
-                  ullam eum fuga deleniti! Cum quos libero consectetur accusamus
-                  eos beatae illo, mollitia qui blanditiis nemo aliquid odit ea
-                  nobis minus vel! Consectetur fugit amet sequi illum?
-                </Text>
+                <List styleType="disc" margin="auto" mb={2}>
+                  <ListItem> Portrétní focení od 1500 Kč</ListItem>
+                  <ListItem> Oslavy od 3000 Kč</ListItem>
+                </List>
               </Box>
             </Box>
 

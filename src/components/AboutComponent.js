@@ -12,7 +12,7 @@ const About = () => {
       mx="auto"
       px={{ base: '5%', md: '15%' }} // Adjust padding for responsiveness
       py={{ base: '4', md: '8' }}
-      maxWidth="100vw" // Ensure it does not exceed the width of the viewport
+      // maxWidth="100vw" // Ensure it does not exceed the width of the viewport
       gap={{ base: 5, md: 10 }} // Space between items
       id="about"
       maxHeight="100vh"
@@ -25,7 +25,7 @@ const About = () => {
         p={3}
       >
         <Heading mb={4} fontSize={{ base: '1rem', '2xl': '2rem' }}>
-          O Mně
+          O Mě
         </Heading>
         <Text
           fontSize={{
@@ -35,10 +35,9 @@ const About = () => {
             '2xl': '1.75rem',
           }}
         >
-          Zdravím všechny dobrodruhy. Jsem Petr - cestovatel a fotograf. Focení
-          se už věnuji nějakou dobu, přesněji xx let. Baví mě taky cestovat,
-          proto převážně najdeš u mě fotky z přirody. Kdyby ses na nějaké chtěl
-          kouknout tak skoč na můj Instagram nebo tady v Galerii.
+          Jmenuji se Petr a jsem fotograf. Pocházím z Vysočiny ale za zakázkami
+          jezdím po celé ČR. Fotím svatby, portréty, rodinné fotografie oslavy a
+          produkty.
         </Text>
       </Box>
       <Box

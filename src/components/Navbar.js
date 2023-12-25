@@ -79,7 +79,7 @@ const Navbar = () => {
         <Flex flex={1} justify="flex-end">
           <Box display={{ base: 'none', md: 'block' }}>
             <Link onClick={() => scrollToSection('about', -50)} mr={3}>
-              O mně
+              O mě
             </Link>
             <Link onClick={() => scrollToSection('portfolio', -100)} mr={3}>
               Galerie

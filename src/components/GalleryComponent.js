@@ -135,7 +135,7 @@ const GalleryComponent = ({ images, isGalleryLoading }) => {
         {images?.slice(0, displayCounts[category]).map((src, index) => (
           <Box
             key={index}
-            boxSize="400px"
+            boxSize={{ base: '90vw', sm: '400px' }}
             position="relative"
             overflow="hidden"
             display={
@@ -200,13 +200,13 @@ const GalleryComponent = ({ images, isGalleryLoading }) => {
   if (isGalleryLoading) return <Loading />;
 
   return (
-    <Box id="portfolio" marginTop="5rem">
+    <Box id="portfolio" marginTop="5rem" width="95vw">
       <Tabs
         index={tabIndex}
         onChange={handleTabsChange}
         variant="enclosed"
         isFitted
-        w="full"
+        width="100vw"
         minHeight="95vh"
       >
         <TabList>
