@@ -6,16 +6,19 @@ import GalleryComponent from '../components/GalleryComponent';
 import ContactForm from '../components/ContactForm';
 import Loading from '../components/Loading';
 import useFetchData from '../hooks/useFetchData';
+import useLoadGalleryPhotos from '../hooks/useLoadGalleryPhotos';
 
 const Home = () => {
   const { data: landingPhotos, isLoading } = useFetchData({
     url: '/UvodniFotky',
   });
+  const { images, isGalleryLoading } = useLoadGalleryPhotos();
 
   // // Render the Loading component while the data is being fetched
   if (isLoading) {
     return <Loading />;
   }
+  console.debug('images in Home are: ', images);
 
   // const images = [
   //   require('../data/carousel_template/carousel_1.jpg'),
@@ -33,7 +36,9 @@ const Home = () => {
       <CarouselComponent images={landingPhotos[0]?.fields?.photos} />
       <About />
 
-      <GalleryComponent />
+      {images && (
+        <GalleryComponent images={images} isGalleryLoading={isGalleryLoading} />
+      )}
 
       <ContactForm />
     </Box>

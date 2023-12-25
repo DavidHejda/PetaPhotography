@@ -6,9 +6,12 @@ const useFlatPhotos = ({ data }) => {
 
   const airtableFields = getFieldsFromAirtable(data);
 
-  const flattenPhotos = airtableFields.map((field) => field.photos).flat();
+  console.debug('airtableFields in useFlatPhotos are: ', airtableFields);
 
-  console.debug('flattenPhotos: ', flattenPhotos);
+  const flattenPhotos = airtableFields
+    .map((field) => field.photos)
+    .flat()
+    .map((photos) => photos.url);
 
   return { flattenPhotos };
 };

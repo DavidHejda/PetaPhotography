@@ -1,25 +1,33 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '../axiosConfig';
 
+const cache = {};
+
 const useFetchData = ({ url }) => {
-  const [isLoading, setIsLoading] = useState(true); // Add a loading state
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
-  let response;
-  const getPhotos = async () => {
-    setIsLoading(true); // Start loading
-    try {
-      response = await axiosInstance.get(url);
-      setData(response.data.records); // Update state with fetched data
-    } catch (error) {
-      console.error('Error fetching landing photos:', error);
-    }
-    setIsLoading(false); // End loading
-  };
 
   useEffect(() => {
-    getPhotos();
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const fetchData = async () => {
+      if (cache[url]) {
+        setData(cache[url]);
+        setIsLoading(false);
+        return;
+      }
+
+      setIsLoading(true);
+      try {
+        const response = await axiosInstance.get(url);
+        cache[url] = response.data.records;
+        setData(response.data.records);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+      setIsLoading(false);
+    };
+
+    fetchData();
+  }, [url]);
 
   return { data, isLoading };
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Tabs,
   TabList,
@@ -6,7 +6,6 @@ import {
   Tab,
   TabPanel,
   SimpleGrid,
-  Image,
   VStack,
   Button,
   useColorModeValue,
@@ -15,68 +14,21 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import ModalGalleryComponent from './ModalGalleryComponent';
-import useFetchData from '../hooks/useFetchData';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Loading from './Loading';
-import useFlatPhotos from '../hooks/useFlatPhotos';
+import useScreenWidth from '../hooks/useScreenWidth';
 
-// Dummy image data
-const imageData = {
-  products: [
-    require('../data/carousel/carousel_1.jpg'),
-    require('../data/carousel/carousel_2.jpg'),
-    require('../data/carousel/carousel_3.jpg'),
-    require('../data/carousel/carousel_4.jpg'),
-    require('../data/carousel/carousel_5.jpg'),
-    require('../data/carousel/carousel_6.jpg'),
-    require('../data/carousel/carousel_7.jpg'),
-    require('../data/carousel/carousel_8.jpg'),
-  ],
-  people: [
-    require('../data/carousel_template/carousel_1.jpg'),
-    require('../data/carousel_template/carousel_2.jpg'),
-    require('../data/carousel_template/carousel_3.jpg'),
-    require('../data/carousel_template/carousel_4.jpg'),
-    require('../data/carousel_template/carousel_5.jpg'),
-    require('../data/carousel_template/carousel_6.jpg'),
-  ],
-  weddings: [
-    require('../data/carousel_template/carousel_1.jpg'),
-    require('../data/carousel_template/carousel_2.jpg'),
-    require('../data/carousel_template/carousel_3.jpg'),
-    require('../data/carousel_template/carousel_4.jpg'),
-    require('../data/carousel_template/carousel_5.jpg'),
-    require('../data/carousel_template/carousel_6.jpg'),
-  ],
-};
-
-const initialDisplayCount = 6;
-
-const GalleryComponent = () => {
+const GalleryComponent = ({ images, isGalleryLoading }) => {
+  const screenWidth = useScreenWidth();
+  const isMobile = screenWidth < 768; // Adjust this threshold as needed
+  const baseCount = isMobile ? 2 : 6;
   const [tabIndex, setTabIndex] = useState(0);
-  const [images, setImages] = useState({});
 
   const [displayCounts, setDisplayCounts] = useState({
-    products: initialDisplayCount,
-    people: initialDisplayCount,
-    weddings: initialDisplayCount,
+    products: baseCount,
+    people: baseCount,
+    weddings: baseCount,
   });
-
-  const { data: productData, isProductsLoading } = useFetchData({
-    url: '/Produkty',
-  });
-
-  const { flattenPhotos: productPhotos } = useFlatPhotos({ data: productData });
-
-  useEffect(() => {
-    setImages((prevImageData) => ({
-      ...imageData,
-      ...prevImageData,
-      products: productPhotos,
-    }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productData]);
-
-  console.debug('images are: ', images);
 
   const handleTabsChange = (index) => {
     setTabIndex(index);
@@ -85,20 +37,20 @@ const GalleryComponent = () => {
   const showMoreImages = (category) => {
     setDisplayCounts((prevCounts) => ({
       ...prevCounts,
-      [category]: prevCounts[category] + 6,
+      [category]: prevCounts[category] + baseCount,
     }));
   };
   const showLessImages = (category) => {
     setDisplayCounts((prevCounts) => ({
       ...prevCounts,
-      [category]: Math.max(initialDisplayCount, prevCounts[category] - 6),
+      [category]: Math.max(baseCount, prevCounts[category] - baseCount),
     }));
   };
 
   const hideAllImages = (category) => {
     setDisplayCounts((prevCounts) => ({
       ...prevCounts,
-      [category]: initialDisplayCount,
+      [category]: baseCount,
     }));
   };
 
@@ -175,27 +127,59 @@ const GalleryComponent = () => {
   //   );
   // };
 
+  console.debug('images in GalleryComponent', images);
+
   const renderImageGrid = (images, category) => (
     <VStack>
       <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={5}>
-        {images.slice(0, displayCounts[category]).map((src, index) => (
-          <Image
+        {images?.slice(0, displayCounts[category]).map((src, index) => (
+          <Box
             key={index}
-            src={src}
             boxSize="400px"
-            objectFit="cover"
-            onClick={() => openModal(index, category)}
-            transition="transform 0.2s, box-shadow 0.2s" // Smooth transition for transform and shadow
+            position="relative"
+            overflow="hidden"
+            display={
+              index >= baseCount && index < baseCount
+                ? { base: 'none', md: 'block' }
+                : 'block'
+            }
+            boxShadow="0 0 8px rgba(0, 0, 0, 0.5)"
             _hover={{
               cursor: 'zoom-in',
-              transform: 'scale(1.05)', // Slightly increase the size of the image
-              boxShadow: '0 0 8px rgba(0, 0, 0, 0.5)', // Add a shadow for more depth
+              transform: 'scale(1.05)',
             }}
-          />
+            onClick={() => openModal(index, category)}
+            transition="transform 0.2s, box-shadow 0.2s"
+            // objectFit="cover"
+          >
+            <LazyLoadImage
+              src={src}
+              effect="blur"
+              style={{
+                width: '400px',
+                height: '400px',
+                objectFit: 'cover',
+              }}
+              wrapperClassName="image-wrapper"
+            />
+          </Box>
+          // <Image
+          //   key={index}
+          //   src={src}
+          //   boxSize="400px"
+          //   objectFit="cover"
+          //   onClick={() => openModal(index, category)}
+          //   transition="transform 0.2s, box-shadow 0.2s" // Smooth transition for transform and shadow
+          //   _hover={{
+          //     cursor: 'zoom-in',
+          //     transform: 'scale(1.05)', // Slightly increase the size of the image
+          //     boxShadow: '0 0 8px rgba(0, 0, 0, 0.5)', // Add a shadow for more depth
+          //   }}
+          // />
         ))}
       </SimpleGrid>
       <HStack marginTop="1rem">
-        {displayCounts[category] > initialDisplayCount && (
+        {displayCounts[category] > baseCount && (
           <>
             <Button onClick={() => showLessImages(category)}>
               Ukázat méně
@@ -203,7 +187,7 @@ const GalleryComponent = () => {
             <Button onClick={() => hideAllImages(category)}>Skrýt vše</Button>
           </>
         )}
-        {displayCounts[category] < images.length && (
+        {displayCounts[category] < images?.length && (
           <Button onClick={() => showMoreImages(category)}>Ukázat více</Button>
         )}
       </HStack>
@@ -213,7 +197,7 @@ const GalleryComponent = () => {
   // Active tab background color
   const activeBgColor = useColorModeValue('gray.200', 'gray.600');
 
-  if (isProductsLoading) return <Loading />;
+  if (isGalleryLoading) return <Loading />;
 
   return (
     <Box id="portfolio" marginTop="5rem">
@@ -231,11 +215,11 @@ const GalleryComponent = () => {
           <Tab _selected={{ bg: activeBgColor }}>Produkty</Tab>
         </TabList>
         <TabPanels>
-          <TabPanel>{renderImageGrid(imageData.people, 'people')}</TabPanel>
-          <TabPanel>{renderImageGrid(imageData.weddings, 'weddings')}</TabPanel>
+          <TabPanel>{renderImageGrid(images?.people, 'people')}</TabPanel>
+          <TabPanel>{renderImageGrid(images?.weddings, 'weddings')}</TabPanel>
           <TabPanel>
             {renderImageGrid(
-              imageData.products, // .map((productImage) => productImage.url)
+              images?.products, // .products
               'products'
             )}
           </TabPanel>
@@ -244,7 +228,7 @@ const GalleryComponent = () => {
       <ModalGalleryComponent
         isOpen={isOpen}
         onClose={onClose}
-        images={imageData[currentCategory]}
+        images={images && images[currentCategory]}
         currentCategory={currentCategory}
         currentImage={currentImage}
         setCurrentImage={setCurrentImage}

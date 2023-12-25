@@ -11,6 +11,7 @@ import {
   ModalOverlay,
 } from '@chakra-ui/react';
 import React from 'react';
+import Loading from './Loading';
 
 const ModalGalleryComponent = ({
   isOpen,
@@ -34,7 +35,7 @@ const ModalGalleryComponent = ({
     if (currentCategory === 'weddings') return 'Svatby';
   };
 
-  return (
+  return images ? (
     <Modal isOpen={isOpen} onClose={onClose} size="4xl" isCentered>
       <ModalOverlay bg="rgba(0, 0, 0, 0.85)" />
       <ModalContent>
@@ -70,6 +71,8 @@ const ModalGalleryComponent = ({
         </ModalBody>
       </ModalContent>
     </Modal>
+  ) : (
+    <Loading />
   );
 };
 
