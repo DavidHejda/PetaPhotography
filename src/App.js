@@ -8,7 +8,7 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} /> {/* Use element prop */}
+        <Route path="/" element={<Home />} />
       </Routes>
     </Router>
   );

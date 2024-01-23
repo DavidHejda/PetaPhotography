@@ -14,6 +14,8 @@ import {
 import PriceListModal from './PriceListModal';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import { IconButton } from '@chakra-ui/react';
+import MobileNav from './MobileNav';
+import { NavLink } from './NavLink';
 
 const Navbar = () => {
   const {
@@ -32,27 +34,11 @@ const Navbar = () => {
     }
   };
 
-  // Hamburger menu for mobile view
-  const MobileNav = () => (
-    <Menu>
-      <MenuButton
-        as={IconButton}
-        icon={<HamburgerIcon />}
-        variant="outline"
-        aria-label="Options"
-      />
-      <MenuList>
-        <MenuItem onClick={() => scrollToSection('about', -50)}>O mně</MenuItem>
-        <MenuItem onClick={() => scrollToSection('portfolio', -100)}>
-          Galerie
-        </MenuItem>
-        <MenuItem onClick={() => scrollToSection('contact', 100)}>
-          Kontakt
-        </MenuItem>
-        <MenuItem onClick={onPriceListOpen}>Ceník</MenuItem>
-      </MenuList>
-    </Menu>
-  );
+  const menuItems = [
+    { id: 'about', offset: -50, label: 'O mně' },
+    { id: 'portfolio', offset: -100, label: 'Galerie' },
+    { id: 'contact', offset: 100, label: 'Kontakt' },
+  ];
 
   return (
     <Box
@@ -78,22 +64,31 @@ const Navbar = () => {
         </Heading>
         <Flex flex={1} justify="flex-end">
           <Box display={{ base: 'none', md: 'block' }}>
-            <Link onClick={() => scrollToSection('about', -50)} mr={3}>
-              O mě
-            </Link>
-            <Link onClick={() => scrollToSection('portfolio', -100)} mr={3}>
-              Galerie
-            </Link>
-            <Link onClick={() => scrollToSection('contact', 100)} mr={3}>
-              Kontakt
-            </Link>
-            <Link onClick={onPriceListOpen} mr={3}>
-              Ceník
-            </Link>
+            {/* <NavLink label="O mě" sectionId="about" yOffsetValue={-50} />
+            <NavLink
+              label="Galerie"
+              sectionId="portfolio"
+              yOffsetValue={-100}
+            />
+            <NavLink label="Kontakt" sectionId="contact" yOffsetValue={100} /> */}
+            {menuItems.map((item) => (
+              <NavLink
+                key={item.id}
+                label={item.label}
+                sectionId={item.id}
+                yOffsetValue={item.offset}
+              />
+            ))}
+
+            <NavLink label="Ceník" onClick={onPriceListOpen} />
           </Box>
           {/* Display the hamburger menu on base and hide the full menu on md and above */}
           <Box display={{ base: 'block', md: 'none' }}>
-            <MobileNav />
+            <MobileNav
+              menuItems={menuItems}
+              scrollToSection={scrollToSection}
+              onPriceListOpen={onPriceListClose}
+            />
           </Box>
           {/* Here is your modal component which you can style as needed */}
           <PriceListModal isOpen={isPriceListOpen} onClose={onPriceListClose} />

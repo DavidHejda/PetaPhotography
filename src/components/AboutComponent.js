@@ -12,7 +12,6 @@ const About = () => {
       mx="auto"
       px={{ base: '5%', md: '15%' }} // Adjust padding for responsiveness
       py={{ base: '4', md: '8' }}
-      // maxWidth="100vw" // Ensure it does not exceed the width of the viewport
       gap={{ base: 5, md: 10 }} // Space between items
       id="about"
       maxHeight="100vh"
@@ -20,7 +19,6 @@ const About = () => {
     >
       <Box
         flex="1" // Takes up 1 part of the available space
-        // maxWidth={{ md: '40%' }} // Limits the width of the text box on larger screens
         textAlign="center"
         p={3}
       >

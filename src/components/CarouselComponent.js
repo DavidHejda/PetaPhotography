@@ -34,7 +34,6 @@ const CarouselComponent = ({ images }) => {
           zIndex: 1,
           transform: 'translateY(-50%)',
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          // Apply additional styles as required
           cursor: 'pointer',
           right: arrowPosition,
           width: arrowWidthSize,
