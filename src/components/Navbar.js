@@ -1,19 +1,6 @@
 import React from 'react';
-import {
-  Box,
-  Flex,
-  Heading,
-  Container,
-  Link,
-  useDisclosure,
-  MenuButton,
-  Menu,
-  MenuList,
-  MenuItem,
-} from '@chakra-ui/react';
+import { Box, Flex, Heading, Container, useDisclosure } from '@chakra-ui/react';
 import PriceListModal from './PriceListModal';
-import { HamburgerIcon } from '@chakra-ui/icons';
-import { IconButton } from '@chakra-ui/react';
 import MobileNav from './MobileNav';
 import { NavLink } from './NavLink';
 
@@ -45,16 +32,16 @@ const Navbar = () => {
       as="nav"
       position="fixed"
       top={0}
-      width="full"
+      width="100%"
       zIndex="banner"
       backgroundColor="white"
     >
-      <Container maxW="container.xl" p={2} display="flex" alignItems="center">
+      <Container maxW="container.xl" display="flex" alignItems="center">
         <Heading
           as="h1"
           size="lg"
           letterSpacing={'tighter'}
-          mr={5}
+          // mr={5}
           sx={{ fontFamily: "'Caveat', cursive" }}
           onClick={() => {
             scrollToSection('home');

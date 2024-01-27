@@ -19,25 +19,28 @@ const CarouselComponent = ({ images }) => {
   });
   const headerMargin = useBreakpointValue({ base: '1rem', md: '4rem' });
 
+  //Common styles for arrows
+  const arrowStyles = {
+    display: 'block',
+    position: 'absolute',
+    color: 'white',
+    top: '50%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 1,
+    transform: 'translateY(-50%)',
+    cursor: 'pointer',
+    width: arrowWidthSize,
+    height: arrowHeightSize,
+  };
+
   // Custom arrow components using react-slick's props
   const SampleNextArrow = (props) => {
-    const { className, style, onClick } = props;
+    const { onClick } = props;
     return (
       <ChevronRightIcon
-        className={className}
         style={{
-          ...style,
-          display: 'block',
-          position: 'absolute',
-          top: '50%',
-          color: 'white',
-          zIndex: 1,
-          transform: 'translateY(-50%)',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          cursor: 'pointer',
+          ...arrowStyles,
           right: arrowPosition,
-          width: arrowWidthSize,
-          height: arrowHeightSize,
         }}
         onClick={onClick}
       />
@@ -45,24 +48,12 @@ const CarouselComponent = ({ images }) => {
   };
 
   const SamplePrevArrow = (props) => {
-    const { className, style, onClick } = props;
+    const { onClick } = props;
     return (
       <ChevronLeftIcon
-        className={className}
         style={{
-          ...style,
-          display: 'block',
-          position: 'absolute',
-          color: 'white',
-          top: '50%',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          zIndex: 1,
-          transform: 'translateY(-50%)',
-          // Apply additional styles as required
-          cursor: 'pointer',
+          ...arrowStyles,
           left: arrowPosition,
-          width: arrowWidthSize,
-          height: arrowHeightSize,
         }}
         onClick={onClick}
       />
@@ -95,46 +86,10 @@ const CarouselComponent = ({ images }) => {
     ],
   };
 
-  // <Slider {...settings}>
-  //   {images.map((img, idx) => (
-  //     <Box key={idx} paddingX="2px" >
-  //       {/* Adjust the left and right padding as necessary */}
-  //       <Image
-  //         src={img}
-  //         alt={`Slide ${idx}`}
-  //         maxHeight="85vh"
-  //         maxWidth="27vw"
-  //         //   width="100%"
-  //         height="auto"
-  //         objectFit="cover" // This will ensure the images cover the slide area fully
-  //       />
-  //     </Box>
-  //   ))}
-  // </Slider>;
-
-  //   return (
-  //     <Slider {...settings}>
-  //       {images.map((img, idx) => (
-  //         <Box key={idx} paddingX="1px">
-  //           <Image
-  //             src={img}
-  //             alt={`Slide ${idx}`}
-  //             maxHeight="85vh"
-  //             // maxWidth="27vw"
-  //             width="100%"
-  //             // height="auto"
-  //           />
-  //         </Box>
-  //       ))}
-  //     </Slider>
-  //   );
-  // };
-
   return (
     <Box id="home">
       <Heading
         as="h1"
-        // letterSpacing={'tighter'}
         sx={{ fontFamily: "'Ibm Plex Mono', cursive" }}
         textAlign={'center'}
         marginTop={headerMargin}
