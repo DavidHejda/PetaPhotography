@@ -41,6 +41,12 @@ const GalleryComponent = ({ images, isGalleryLoading }) => {
   const imagesArray = Object.entries(images);
   console.debug('imagesArray', imagesArray);
 
+  const getTitle = (category) => {
+    if (category === 'products') return 'Produkty';
+    if (category === 'people') return 'Lidé';
+    if (category === 'weddings') return 'Svatby';
+  };
+
   return (
     <Box id="portfolio" marginTop="5rem" width="full">
       <Tabs
@@ -52,13 +58,16 @@ const GalleryComponent = ({ images, isGalleryLoading }) => {
         minHeight="95vh"
       >
         <TabList>
-          <Tab _selected={{ bg: activeBgColor }}>Lidé</Tab>
-          <Tab _selected={{ bg: activeBgColor }}>Svatby</Tab>
-          <Tab _selected={{ bg: activeBgColor }}>Produkty</Tab>
+          {Object.keys(images).map((category, index) => (
+            <Tab key={category} _selected={{ bg: activeBgColor }}>
+              {getTitle(category)}
+            </Tab>
+          ))}
         </TabList>
         <TabPanels>
           {Object.entries(images).map(([category, images]) => (
             <TabPanel key={category}>
+              {console.debug('category', category)}
               {ImageGrid({
                 images,
                 category,

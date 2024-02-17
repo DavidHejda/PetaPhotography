@@ -16,9 +16,9 @@ const useLoadGalleryPhotos = () => {
     url: '/Svatby',
   });
 
-  const { flattenPhotos: productPhotos } = useFlatPhotos({ data: productData });
   const { flattenPhotos: peoplePhotos } = useFlatPhotos({ data: peopleData });
   const { flattenPhotos: weddingPhotos } = useFlatPhotos({ data: weddingData });
+  const { flattenPhotos: productPhotos } = useFlatPhotos({ data: productData });
 
   // Prefetch and cache images
   const prefetchImages = (photos) => {
@@ -32,9 +32,9 @@ const useLoadGalleryPhotos = () => {
     if (!isProductsLoading && !isPeopleLoading && !isWeddingLoading) {
       prefetchImages([...productPhotos, ...peoplePhotos, ...weddingPhotos]);
       setImages({
-        products: productPhotos || [],
         people: peoplePhotos || [],
         weddings: weddingPhotos || [],
+        products: productPhotos || [],
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

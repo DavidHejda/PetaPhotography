@@ -20,17 +20,6 @@ const Home = () => {
   }
   console.debug('images in Home are: ', images);
 
-  // const images = [
-  //   require('../data/carousel_template/carousel_1.jpg'),
-  //   require('../data/carousel_template/carousel_2.jpg'),
-  //   require('../data/carousel_template/carousel_3.jpg'),
-  //   require('../data/carousel_template/carousel_4.jpg'),
-  //   require('../data/carousel_template/carousel_5.jpg'),
-  //   require('../data/carousel_template/carousel_6.jpg'),
-  //   // require('./data/carousel_template/carousel_7.jpg'),
-  //   // require('./data/carousel_template/carousel_8.jpg'),
-  // ];
-
   return (
     <Box>
       <CarouselComponent images={landingPhotos[0]?.fields?.photos} />
